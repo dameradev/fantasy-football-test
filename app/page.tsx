@@ -1,103 +1,111 @@
-import Image from "next/image";
-
+import { ChevronDown, ChevronRight, ChevronLeft } from "lucide-react";
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="min-h-screen bg-darkest-bg text-white p-6 flex flex-col">
+      <div className="max-w-fit p-6 rounded-lg self-center flex gap-4 mb-6 bg-dark-gray">
+        <div className="relative inline-block">
+          <select className="appearance-none text-white px-4 py-1 rounded bg-dark-bg pr-8">
+            <option>Select Operator</option>
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 text-white" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <div className="relative inline-block">
+          <select className="appearance-none text-white px-4 py-1 rounded bg-dark-bg pr-8">
+            <option>Select Game Type</option>
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 text-white" />
+        </div>
+        <div className="relative inline-block">
+          <select className="appearance-none text-white px-4 py-1 rounded bg-dark-bg pr-8">
+            <option>Select Slate Name</option>
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 text-white" />
+        </div>
+      </div>
+
+      <div className="flex gap-6">
+        <div className="flex-1">
+          <div className="overflow-hidden">
+            <table className="w-full rounded-t-lg" >
+              <thead className="bg-dark-bg">
+                <tr>
+                  {/* HAD TO ADD ROUNDED TOP LEFT AND TOP RIGHT, IT WASN'T WORKING WITH THE TABLE*/}
+                  <th className="px-4 py-3 text-left rounded-tl-lg">Name</th>
+                  <th className="px-4 py-3 text-left">Team</th>
+                  <th className="px-4 py-3 text-left">Position</th>
+                  <th className="px-4 py-3 text-left">Salary</th>
+                  <th className="px-4 py-3 text-left rounded-tr-lg">Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="bg-highlight ">
+                  <td className="px-4 py-3">Tom Brady</td>
+                  <td className="px-4 py-3">TB</td>
+                  <td className="px-4 py-3">QB</td>
+                  <td className="px-4 py-3">$11,200</td>
+                  <td className="px-4 py-3">23</td>
+                </tr>
+                {[...Array(7)].map((_, i) => (
+                  <tr key={i} className=" bg-dark-gray">
+                    <td className="px-4 py-3">Patrick Mahomes</td>
+                    <td className="px-4 py-3">KC</td>
+                    <td className="px-4 py-3">QB</td>
+                    <td className="px-4 py-3">$8,800</td>
+                    <td className="px-4 py-3">23</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="py-4 px-4 rounded-b-lg flex items-center justify-between text-sm bg-dark-bg">
+            <div className="flex items-center gap-2">
+              <span>Page</span>
+              <div className="relative inline-block">
+                <select className="appearance-none text-white px-2 py-1 rounded bg-darkest-bg pr-6">
+                  <option>1</option>
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 w-4 h-4 text-white" />
+              </div>
+              <span>Rows per page</span>
+              <div className="relative inline-block">
+                <select className="appearance-none text-white px-2 py-1 rounded bg-darkest-bg pr-6">
+                  <option>8</option>
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <span>1 - 8 of 200</span>
+              <div className="flex gap-2">
+                <button className="p-1 hover: rounded">
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button className="p-1 hover: rounded">
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-80 bg-dark-gray rounded-lg p-6">
+          <div className="w-32 h-32 mx-auto mb-4 bg-dark-bg rounded-full flex items-center justify-center">
+            <div className="text-xs text-center text-medium-gray">
+              Player<br />Image
+            </div>
+          </div>
+
+          <div className="text-center mb-6">
+            <h2 className="text-xl font-semibold">Tom Brady</h2>
+          </div>
+
+          <div className="text-center">
+            <div className="text-6xl font-bold text-white mb-2">51</div>
+            <div className="text-sm text-medium-gray">Points</div>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }

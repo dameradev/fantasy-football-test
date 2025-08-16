@@ -3,6 +3,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Custom color palette */
+  --darkest-bg: #101010;
+  --dark-bg: #191919;
+  --dark-gray: #282828;
+  --highlight: #73711c;
+  --light-gray: #dddddc;
+  --medium-gray: #878784;
 }
 
 @theme inline {
@@ -10,6 +18,14 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Custom color definitions for Tailwind */
+  --color-darkest-bg: var(--darkest-bg);
+  --color-dark-bg: var(--dark-bg);
+  --color-dark-gray: var(--dark-gray);
+  --color-highlight: var(--highlight);
+  --color-light-gray: var(--light-gray);
+  --color-medium-gray: var(--medium-gray);
 }
 
 @media (prefers-color-scheme: dark) {
