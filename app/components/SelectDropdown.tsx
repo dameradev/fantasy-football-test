@@ -5,7 +5,7 @@ interface SelectDropdownProps<T = string> {
   placeholder: string;
   className?: string;
   value?: T;
-  onChange?: (value: T) => void;
+  onChange?: (value: T | undefined) => void;
   getLabel?: (option: T) => string;
   getValue?: (option: T) => string | number;
 }
@@ -13,7 +13,6 @@ interface SelectDropdownProps<T = string> {
 export default function SelectDropdown<T = string>({ 
   options, 
   placeholder, 
-  className = "",
   value,
   onChange,
   getLabel = (option: T) => String(option),
@@ -22,10 +21,14 @@ export default function SelectDropdown<T = string>({
   return (
     <div className="relative inline-block">
       <select 
-        className={`appearance-none text-white px-4 py-1 rounded bg-dark-bg pr-8 ${className}`}
+        className={`appearance-none text-white px-4 py-1 rounded bg-dark-bg pr-8 w-[200px]`}
         value={value ? getValue(value) : ''}
         onChange={(e) => {
           if (onChange) {
+            if (e.target.value === "remove-option") {
+              onChange(undefined);
+              return;
+            }
             const selectedOption = options.find(option => getValue(option) === e.target.value);
             if (selectedOption) {
               onChange(selectedOption);
@@ -33,7 +36,7 @@ export default function SelectDropdown<T = string>({
           }
         }}
       >
-        <option value="">{placeholder}</option>
+        <option value="remove-option">{placeholder}</option>
         {options.map((option, index) => (
           <option key={index} value={getValue(option)}>
             {getLabel(option)}

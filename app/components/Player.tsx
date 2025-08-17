@@ -16,9 +16,9 @@ export default function Player({ player }: PlayerProps) {
   }, [player]);
   
   return (
-    <div className="max-h-[500px] w-80 bg-dark-gray rounded-lg overflow-hidden">
+    <div className="h-[500px] w-80 bg-dark-gray rounded-lg overflow-hidden">
       <div className="h-[50%] bg-dark-bg flex items-center justify-center overflow-hidden">
-        {imageUrl ? (
+        {imageUrl && player ? (
           <Image 
             src={imageUrl} 
             width={160}
@@ -27,17 +27,20 @@ export default function Player({ player }: PlayerProps) {
             className="w-full h-full object-cover"
             onError={() => setImageUrl('')}
           />
-        ) : (
+        ) : player ? (
           <div className="text-xs text-center text-medium-gray">
             Could not load image
           </div>
-        )}
+        ) : <div>
+          <div className="text-xs text-center text-medium-gray">
+            No Player Selected
+          </div>
+        </div>
+        }
       </div>
-
-      {/* Bottom half - Text */}
       <div className="h-[50%] p-6 flex flex-col justify-between text-center">
         <div className="text-2xl text-white mb-2">
-          {player?.operatorPlayerName}
+          {player?.operatorPlayerName || "N/A"}
         </div>
         <div className="text-[100px]  text-white mb-2">
           {player?.fantasyPoints || 0}

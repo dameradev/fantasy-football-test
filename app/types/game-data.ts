@@ -26,6 +26,12 @@ export interface DfsSlateGame {
   removedByOperator: boolean;
   scoreId: number;
   game: Record<string, unknown>;
+  awayTeam?: string;
+  homeTeam?: string;
+  teamA?: string;
+  teamB?: string;
+  away?: string;
+  home?: string;
 }
 
 export interface GameSlate {
@@ -49,10 +55,15 @@ export interface GameSlate {
   salaryCap: number;
   slateRosterSlots: RosterSlot[];
   id: string;
+  operatorSlateName?: string;
+  name?: string;
+  displayName?: string;
+  gameType?: string;
+  contestType?: string;
+  operatorPlatform?: string;
 }
 
 export type PlayerPosition = 'QB' | 'RB' | 'WR' | 'TE' | 'WR/TE';
-
 export type RosterSlot = 'QB' | 'RB' | 'WR' | 'TE' | 'WR/TE' | 'FLEX';
 
 export interface PlayerStats {
@@ -77,22 +88,18 @@ export interface FantasyDefenseProjection {
 
 export type GameData = GameSlate[];
 
-export interface PlayerFilter {
-  position?: PlayerPosition;
-  team?: string;
-  minSalary?: number;
-  maxSalary?: number;
-  minFantasyPoints?: number;
-  maxFantasyPoints?: number;
-}
+export const POSITIONS: PlayerPosition[] = ['QB', 'RB', 'WR', 'TE', 'WR/TE'];
+export const ROSTER_SLOTS: RosterSlot[] = ['QB', 'RB', 'WR', 'TE', 'WR/TE', 'FLEX'];
 
+export type PlayerFilter = {
+  operator?: string;
+  gameType?: string;
+  slateId?: number;
+};
 export interface PlayerSort {
   field: keyof SlatePlayer;
   direction: 'asc' | 'desc';
 }
-
-export const POSITIONS: PlayerPosition[] = ['QB', 'RB', 'WR', 'TE', 'WR/TE'];
-export const ROSTER_SLOTS: RosterSlot[] = ['QB', 'RB', 'WR', 'TE', 'WR/TE', 'FLEX'];
 
 export function isSlatePlayer(obj: SlatePlayer): obj is SlatePlayer {
   return obj && 

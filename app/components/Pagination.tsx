@@ -2,13 +2,11 @@
 
 import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import { useRouter, useSearchParams } from 'next/navigation';
-import { PlayerFilter } from '../types/game-data';
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
   totalCount: number;
   rowsPerPage: number;
-  currentFilters: PlayerFilter;
 }
 
 export default function Pagination({ 
@@ -16,7 +14,6 @@ export default function Pagination({
   totalPages, 
   totalCount, 
   rowsPerPage,
-  currentFilters,
 }: PaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
