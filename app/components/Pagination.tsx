@@ -40,7 +40,11 @@ export default function Pagination({
   };
 
   const handleRowsPerPageChange = (newRowsPerPage: number) => {
-    updateURL(1, newRowsPerPage);
+    const newTotalPages = Math.ceil(totalCount / newRowsPerPage);
+    
+    const newPage = currentPage <= newTotalPages ? currentPage : 1;
+    
+    updateURL(newPage, newRowsPerPage);
   };
 
   const startItem = (currentPage - 1) * rowsPerPage + 1;
