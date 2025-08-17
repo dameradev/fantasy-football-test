@@ -1,4 +1,9 @@
-export default function DataTable() {
+import { SlatePlayer } from '../types';
+interface DataTableProps {
+  players: SlatePlayer[];
+}
+
+export default function DataTable({ players }: DataTableProps) {
   return (
     <div className="overflow-hidden">
       <table className="w-full rounded-t-lg">
@@ -12,20 +17,15 @@ export default function DataTable() {
           </tr>
         </thead>
         <tbody>
-          <tr className="bg-highlight">
-            <td className="px-4 py-3">Tom Brady</td>
-            <td className="px-4 py-3">TB</td>
-            <td className="px-4 py-3">QB</td>
-            <td className="px-4 py-3">$11,200</td>
-            <td className="px-4 py-3">23</td>
-          </tr>
-          {[...Array(7)].map((_, i) => (
-            <tr key={i} className="bg-dark-gray">
-              <td className="px-4 py-3">Patrick Mahomes</td>
-              <td className="px-4 py-3">KC</td>
-              <td className="px-4 py-3">QB</td>
-              <td className="px-4 py-3">$8,800</td>
-              <td className="px-4 py-3">23</td>
+          {players.map((player, index) => (
+            <tr key={player.slatePlayerId} className={index % 2 === 0 ? 'bg-highlight' : 'bg-dark-gray'}>
+              <td className="px-4 py-3">{player.operatorPlayerName}</td>
+              <td className="px-4 py-3">{player.team || 'N/A'}</td>
+              <td className="px-4 py-3">{player.operatorPosition}</td>
+              <td className="px-4 py-3">
+                {player.operatorSalary > 0 ? `$${player.operatorSalary.toLocaleString()}` : 'N/A'}
+              </td>
+              <td className="px-4 py-3">{player.fantasyPoints || 0}</td>
             </tr>
           ))}
         </tbody>

@@ -1,20 +1,26 @@
-import FilterBar from "./components/FilterBar";
+"use client";
+
+import Filters from "./components/Filters";
 import DataTable from "./components/DataTable";
 import Pagination from "./components/Pagination";
-import PlayerCard from "./components/PlayerCard";
+import Player from "./components/Player";
 
-export default function Home() {
+export default function Home() {  
+
   return (
     <main className="min-h-screen bg-darkest-bg text-white p-6 flex flex-col">
-      <FilterBar />
-      
+      <Filters />
+
       <div className="flex gap-6">
         <div className="flex-1">
-          <DataTable />
+          <DataTable
+            players={[]}
+          />
           <Pagination />
         </div>
 
-        <PlayerCard name="Tom Brady" points={51} />
+        <Player />
+
       </div>
     </main>
   );
