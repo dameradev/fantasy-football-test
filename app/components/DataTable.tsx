@@ -18,7 +18,7 @@ export default function DataTable({ players }: DataTableProps) {
         </thead>
         <tbody>
           {players.map((player, index) => (
-            <tr key={player.slatePlayerId} className={index % 2 === 0 ? 'bg-highlight' : 'bg-dark-gray'}>
+            <tr key={player.slatePlayerId} className={'bg-dark-gray'}>
               <td className="px-4 py-3">{player.operatorPlayerName}</td>
               <td className="px-4 py-3">{player.team || 'N/A'}</td>
               <td className="px-4 py-3">{player.operatorPosition}</td>

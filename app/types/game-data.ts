@@ -18,8 +18,25 @@ export interface SlatePlayer {
   fantasyPointsPerDollar?: number;
 }
 
+export interface DfsSlateGame {
+  slateGameId: number;
+  slateId: number;
+  gameId: number;
+  operatorGameId: number;
+  removedByOperator: boolean;
+  scoreId: number;
+  game: Record<string, unknown>;
+}
+
 export interface GameSlate {
-  slatePlayers: SlatePlayer[];
+  _id: string;
+  season: number;
+  seasonType: number;
+  slateId: number;
+  week: number;
+  _lastUpdatedDate: string;
+  dfsSlateGames: DfsSlateGame[];
+  dfsSlatePlayers: SlatePlayer[];
   isMultiDaySlate: boolean;
   numberOfGames: number;
   operator: string;
@@ -86,7 +103,7 @@ export function isSlatePlayer(obj: SlatePlayer): obj is SlatePlayer {
 
 export function isGameSlate(obj: GameSlate): obj is GameSlate {
   return obj && 
-    Array.isArray(obj.slatePlayers) &&
+    Array.isArray(obj.dfsSlatePlayers) &&
     typeof obj.operator === 'string' &&
     typeof obj.operatorSlateId === 'number';
 }
