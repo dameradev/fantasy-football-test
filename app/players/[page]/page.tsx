@@ -5,6 +5,7 @@ import Player from '../../components/Player';
 import PlayerSelectionWrapper from '@/app/components/PlayerSelectionWrapper';
 import FiltersController from '../../components/FiltersController';
 import { fetchPlayers } from '../../services/api';
+
 interface PlayersPageProps {
   params: Promise<{ page: string }>;
   searchParams: Promise<{
@@ -37,12 +38,29 @@ export default async function PlayersPage({ params, searchParams }: PlayersPageP
   const { totalCount, totalPages } = pagination;
   if (page > totalPages && totalPages > 0) notFound();
 
-  const selectedPlayerId = sp.selectedPlayerId ? parseInt(sp.selectedPlayerId) : undefined;
+  let selectedPlayerId = sp.selectedPlayerId ? parseInt(sp.selectedPlayerId) : undefined;
+  
+  if (filters.slateId && !selectedPlayerId && players.length > 0) {
+    selectedPlayerId = players[0].slatePlayerId;
+  }
+  
   const selectedPlayer = selectedPlayerId ? players.find(p => p.slatePlayerId === selectedPlayerId) : undefined;
 
   const operatorOptions = (meta?.operatorOptions as string[]) ?? [];
   const gameTypeOptions = (meta?.gameTypeOptions as string[]) ?? [];
   const slateOptions = (meta?.slateOptions as { id: number; name: string | number }[]) ?? [];
+
+  if (filters.slateId && !sp.selectedPlayerId && selectedPlayerId && players.length > 0) {
+    const redirectParams = new URLSearchParams();
+    
+    if (sp.operator) redirectParams.set('operator', sp.operator);
+    if (sp.gameType) redirectParams.set('gameType', sp.gameType);
+    if (sp.slateId) redirectParams.set('slateId', sp.slateId);
+    if (sp.rowsPerPage) redirectParams.set('rowsPerPage', sp.rowsPerPage);
+    
+    redirectParams.set('selectedPlayerId', selectedPlayerId.toString());
+    
+  }
 
   return (
     <main className="min-h-screen bg-darkest-bg text-white p-6 flex flex-col">

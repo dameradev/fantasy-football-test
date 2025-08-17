@@ -34,9 +34,25 @@ export default function FiltersController({
       else params.set(k, String(v));
     };
 
-    setOrDelete("operator", next.operator);
-    setOrDelete("gameType", next.gameType);
-    setOrDelete("slateId", next.slateId);
+    if (next.operator !== current.operator) {
+      setOrDelete("operator", next.operator);
+      setOrDelete("gameType", undefined);
+      setOrDelete("slateId", undefined);
+      setOrDelete("selectedPlayerId", undefined);
+    } else if (next.gameType !== current.gameType) {
+      setOrDelete("gameType", next.gameType);
+      setOrDelete("slateId", undefined);
+      setOrDelete("selectedPlayerId", undefined);
+    } else if (next.slateId !== current.slateId) {
+      setOrDelete("slateId", next.slateId);
+      setOrDelete("selectedPlayerId", undefined);
+      if (current.operator) params.set("operator", current.operator);
+      if (current.gameType) params.set("gameType", current.gameType);
+    } else {
+      setOrDelete("operator", next.operator);
+      setOrDelete("gameType", next.gameType);
+      setOrDelete("slateId", next.slateId);
+    }
 
     params.delete("page");
 

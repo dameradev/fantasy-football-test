@@ -100,6 +100,29 @@ function buildGlobalOperatorAndGameTypes(gameData: GameData) {
   return { operatorOptions, gameTypeOptions };
 }
 
+function buildGameTypeOptionsForOperator(
+  gameData: GameData,
+  operator: string
+): string[] {
+  const seenGameTypes = new Set<string>();
+  const gameTypeOptions: string[] = [];
+
+  for (const slate of gameData) {
+    const slateOperator = slate.operator ?? slate.operatorPlatform;
+    if (slateOperator !== operator) continue;
+
+    const gtRaw = slate.operatorGameType ?? slate.gameType ?? slate.contestType;
+    const gt = normalizeGameType(gtRaw);
+    const key = String(gt).toLowerCase();
+    if (!seenGameTypes.has(key)) {
+      seenGameTypes.add(key);
+      gameTypeOptions.push(gt);
+    }
+  }
+
+  gameTypeOptions.sort((a, b) => a.localeCompare(b));
+  return gameTypeOptions;
+}
 
 function buildSlateOptionsFromFilters(
   gameData: GameData,
@@ -204,7 +227,16 @@ export async function fetchPlayers(
 
   const gameData = (await import('../data/game-data.json')).default as GameData;
 
-  const { operatorOptions, gameTypeOptions } = buildGlobalOperatorAndGameTypes(gameData);
+  const { operatorOptions } = buildGlobalOperatorAndGameTypes(gameData);
+  
+  let gameTypeOptions: string[];
+  if (filters.operator) {
+    gameTypeOptions = buildGameTypeOptionsForOperator(gameData, filters.operator);
+  } else {
+    const { gameTypeOptions: allGameTypes } = buildGlobalOperatorAndGameTypes(gameData);
+    gameTypeOptions = allGameTypes;
+  }
+  
   const slateOptions = buildSlateOptionsFromFilters(gameData, filters);
 
   const filteredPlayers = applyFilters(gameData, filters);

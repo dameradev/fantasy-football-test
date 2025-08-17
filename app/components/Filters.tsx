@@ -20,7 +20,8 @@ export default function Filters({
   onChange,
 }: FiltersProps) {
 
-  const slateDisabled = !filters?.gameType;
+  const gameTypeDisabled = !filters?.operator;
+  const slateDisabled = !filters?.operator || !filters?.gameType;
 
   return (
     <div className="max-w-fit p-6 rounded-lg self-center flex gap-4 mb-6 bg-dark-gray">
@@ -28,7 +29,7 @@ export default function Filters({
         options={operatorOptions}
         placeholder="Select Operator"
         value={filters?.operator}
-        onChange={(operator) => onChange({ ...filters, operator, gameType: (filters?.gameType ?? undefined), slateId: (filters?.slateId ?? undefined) })}
+        onChange={(operator) => onChange({ ...filters, operator })}
       />
       <SelectDropdown
         options={gameTypeOptions}
@@ -38,9 +39,10 @@ export default function Filters({
           onChange({
             ...filters,
             gameType,
-            slateId: undefined,
           })
         }
+        className={gameTypeDisabled ? "opacity-50 cursor-not-allowed" : ""}
+        disabled={gameTypeDisabled}
       />
       <SelectDropdown
         options={slateOptions}
@@ -52,6 +54,7 @@ export default function Filters({
         getLabel={(opt) => String((opt as SlateOption).name)}
         getValue={(opt) => String((opt as SlateOption).id)}
         className={slateDisabled ? "opacity-50 cursor-not-allowed" : ""}
+        disabled={slateDisabled}
       />
     </div>
   );
