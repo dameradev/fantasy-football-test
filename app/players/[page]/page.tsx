@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
-import DataTable from '../../components/DataTable';
-import Pagination from '../../components/Pagination';
-import Player from '../../components/Player';
-import PlayerSelectionWrapper from '@/app/components/PlayerSelectionWrapper';
-import FiltersController from '../../components/FiltersController';
-import { fetchPlayers } from '../../services/api';
+import DataTable from '@/app/src/components/DataTable';
+import Pagination from '@/app/src/components/Pagination';
+import Player from '@/app/src/components/Player';
+import PlayerSelectionWrapper from '@/app/src/components/PlayerSelectionWrapper';
+import FiltersController from '@/app/src/components/FiltersController';
+import { fetchPlayers } from '@/app/src/services/api';
 
 interface PlayersPageProps {
   params: Promise<{ page: string }>;
