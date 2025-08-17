@@ -14,11 +14,11 @@ export default function DataTable({ players }: DataTableProps) {
       <table className="w-full rounded-t-lg">
         <thead className="bg-dark-bg">
           <tr>
-            <th className="px-4 py-3 text-left rounded-tl-lg">Name</th>
-            <th className="px-4 py-3 text-left">Team</th>
-            <th className="px-4 py-3 text-left">Position</th>
-            <th className="px-4 py-3 text-left">Salary</th>
-            <th className="px-4 py-3 text-left rounded-tr-lg">Points</th>
+            <th className="px-6 py-3 text-left font-normal  rounded-tl-lg">Name</th>
+            <th className="px-6 py-3 text-center font-normal">Team</th>
+            <th className="px-6 py-3 text-center font-normal">Position</th>
+            <th className="px-6 py-3 text-left font-normal">Salary</th>
+            <th className="px-6 py-3 text-right font-normal rounded-tr-lg">Points</th>
           </tr>
         </thead>
         <tbody>
@@ -34,13 +34,13 @@ export default function DataTable({ players }: DataTableProps) {
                 aria-selected={isSelected}
                 role="row"
               >
-                <td className="px-4 py-3">{player.operatorPlayerName}</td>
-                <td className="px-4 py-3">{player.team || "N/A"}</td>
-                <td className="px-4 py-3">{player.operatorPosition}</td>
-                <td className="px-4 py-3">
+                <td className="px-6 py-3">{player.operatorPlayerName}</td>
+                <td className="px-6 py-3 text-center">{player.team || "N/A"}</td>
+                <td className="px-6 py-3 text-center">{player.operatorPosition}</td>
+                <td className="px-6 py-3">
                   {player.operatorSalary > 0 ? `$${player.operatorSalary.toLocaleString()}` : "N/A"}
                 </td>
-                <td className="px-4 py-3">{player.fantasyPoints || 0}</td>
+                <td className="px-6 py-3 text-right">{player.fantasyPoints || 0}</td>
               </tr>
             );
           })}

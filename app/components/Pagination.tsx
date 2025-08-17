@@ -9,10 +9,10 @@ interface PaginationProps {
   rowsPerPage: number;
 }
 
-export default function Pagination({ 
-  currentPage, 
-  totalPages, 
-  totalCount, 
+export default function Pagination({
+  currentPage,
+  totalPages,
+  totalCount,
   rowsPerPage,
 }: PaginationProps) {
   const router = useRouter();
@@ -20,7 +20,7 @@ export default function Pagination({
 
   const updateURL = (newPage: number, newRowsPerPage?: number) => {
     const params = new URLSearchParams(searchParams);
-    
+
     if (newRowsPerPage) {
       params.set('rowsPerPage', newRowsPerPage.toString());
     }
@@ -38,9 +38,9 @@ export default function Pagination({
 
   const handleRowsPerPageChange = (newRowsPerPage: number) => {
     const newTotalPages = Math.ceil(totalCount / newRowsPerPage);
-    
+
     const newPage = currentPage <= newTotalPages ? currentPage : 1;
-    
+
     updateURL(newPage, newRowsPerPage);
   };
 
@@ -48,11 +48,12 @@ export default function Pagination({
   const endItem = Math.min(currentPage * rowsPerPage, totalCount);
 
   return (
-    <div className="py-4 px-4 rounded-b-lg flex items-center justify-between text-sm bg-dark-bg">
-      <div className="flex items-center gap-2">
+    <div className="py-2 px-6 rounded-b-lg flex items-center justify-between text-sm bg-dark-bg">
+      <div className='flex items-center gap-2'>
+
         <span>Page</span>
         <div className="relative inline-block">
-          <select 
+          <select
             className="appearance-none text-white px-2 py-1 rounded bg-darkest-bg pr-6"
             value={currentPage}
             onChange={(e) => handlePageChange(parseInt(e.target.value))}
@@ -63,9 +64,13 @@ export default function Pagination({
           </select>
           <ChevronDown className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 w-4 h-4 text-white" />
         </div>
+      </div>
+
+
+      <div className="flex items-center gap-2">
         <span>Rows per page</span>
         <div className="relative inline-block">
-          <select 
+          <select
             className="appearance-none text-white px-2 py-1 rounded bg-darkest-bg pr-6"
             value={rowsPerPage}
             onChange={(e) => handleRowsPerPageChange(parseInt(e.target.value))}
@@ -78,24 +83,23 @@ export default function Pagination({
           <ChevronDown className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 w-4 h-4 text-white" />
         </div>
       </div>
-      <div className="flex items-center gap-4">
-        <span>{startItem} - {endItem} of {totalCount}</span>
-        <div className="flex gap-2">
-          <button 
-            className={`p-1 rounded ${currentPage <= 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-darkest-bg'}`}
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage <= 1}
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-          <button 
-            className={`p-1 rounded ${currentPage >= totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:bg-darkest-bg'}`}
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage >= totalPages}
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
+      <div>{startItem} - {endItem} of {totalCount}</div>
+      <div className="flex items-center ">
+
+        <button
+          className={` rounded ${currentPage <= 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-darkest-bg'}`}
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage <= 1}
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </button>
+        <button
+          className={` rounded ${currentPage >= totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:bg-darkest-bg'}`}
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage >= totalPages}
+        >
+          <ChevronRight className="w-4 h-4" />
+        </button>
       </div>
     </div>
   );
