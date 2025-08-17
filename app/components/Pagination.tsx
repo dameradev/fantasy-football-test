@@ -15,8 +15,8 @@ export default function Pagination({
   currentPage, 
   totalPages, 
   totalCount, 
-  rowsPerPage, 
-  currentFilters 
+  rowsPerPage,
+  currentFilters,
 }: PaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();

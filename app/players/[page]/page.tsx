@@ -4,7 +4,7 @@ import DataTable from '../../components/DataTable';
 import Pagination from '../../components/Pagination';
 import Player from '../../components/Player';
 import { fetchPlayers } from '../../services/api';
-
+import PlayerSelectionWrapper from '@/app/components/PlayerSelectionWrapper';
 interface PlayersPageProps {
   params: Promise<{
     page: string;
@@ -12,11 +12,7 @@ interface PlayersPageProps {
   searchParams: Promise<{
     rowsPerPage?: string;
     position?: string;
-    team?: string;
-    minSalary?: string;
-    maxSalary?: string;
-    minFantasyPoints?: string;
-    maxFantasyPoints?: string;
+    selectedPlayerId?: string;
   }>;
 }
 
@@ -26,6 +22,7 @@ export default async function PlayersPage({ params, searchParams }: PlayersPageP
 
   const page = parseInt(pageParam);
   const rowsPerPage = parseInt(searchParamsResolved.rowsPerPage || '8');
+  const selectedPlayerId = searchParamsResolved.selectedPlayerId ? parseInt(searchParamsResolved.selectedPlayerId) : undefined;
 
   if (isNaN(page) || page < 1) {
     notFound();
@@ -44,13 +41,21 @@ export default async function PlayersPage({ params, searchParams }: PlayersPageP
     notFound();
   }
 
+  const selectedPlayer = selectedPlayerId ? players.find(p => p.slatePlayerId === selectedPlayerId) : undefined;
+
   return (
     <main className="min-h-screen bg-darkest-bg text-white p-6 flex flex-col">
       <Filters />
 
       <div className="flex gap-6">
         <div className="flex-1">
-          <DataTable players={players} />
+          <PlayerSelectionWrapper 
+            selectedPlayerId={selectedPlayerId}
+            currentPage={page}
+          >
+            <DataTable players={players} />
+          </PlayerSelectionWrapper>
+          
           <Pagination
             currentPage={page}
             totalPages={totalPages}
@@ -60,9 +65,8 @@ export default async function PlayersPage({ params, searchParams }: PlayersPageP
           />
         </div>
 
-        <Player />
+        <Player player={selectedPlayer} />
       </div>
     </main>
   );
-
 }
